@@ -113,3 +113,10 @@ type TestClass () =
     member this.PizzaLaPlusVendue () =
         let pizza = GetPizzaLaPlusVendue()
         Console.WriteLine($"Réponse : {(fst pizza).Name} en {snd pizza} exemplaires")
+        Assert.IsTrue((fst pizza).Id <> Guid.Empty && snd pizza > 0)
+        
+    [<TestMethod>]
+    member this.MoyenneNbPizzasParCommande () =
+        let nb = GetNbMoyenPizzasParCommande()
+        Console.WriteLine($"Réponse : {nb}")
+        Assert.IsTrue(nb > 0)

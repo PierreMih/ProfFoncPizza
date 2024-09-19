@@ -87,3 +87,7 @@ module MyPizzas =
                                                            .First()
         let pizzaList = GetPizzaListFromJson()
         (pizzaList.First(fun p -> p.Id = fst guidPizzaInOrderLaPlusVendueWithQuantity), snd guidPizzaInOrderLaPlusVendueWithQuantity)
+        
+    let GetNbMoyenPizzasParCommande () =
+        let orderList = GetOrderListFromJson()
+        orderList.Average(fun o -> o.Items.Count())
