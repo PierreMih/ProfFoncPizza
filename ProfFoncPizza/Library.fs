@@ -75,3 +75,15 @@ module MyPizzas =
     let GetPizzaRecipesWithNoMeat () =
         let pizzaList = GetPizzaListFromJson()
         pizzaList.Where(fun p -> not(p.Ingredients.Intersect(["Anchois"; "Jambon Cru"; "Saucisson Piquant"; "Jambon Cuît"]).Any()))
+        
+    let GetPizzaLaPlusVendue () =
+        let orderList = GetOrderListFromJson()
+        let guidPizzaInOrderLaPlusVendueWithQuantity = orderList
+                                                           .SelectMany(fun o -> o.Items :> IEnumerable<_>)
+                                                           .Select(fun pio -> (pio.PizzaId, pio.Quantity))
+                                                           .GroupBy(fun tup -> fst tup)
+                                                           .Select(fun tup -> tup.Key, tup.Sum(snd) )
+                                                           .OrderByDescending(snd)
+                                                           .First()
+        let pizzaList = GetPizzaListFromJson()
+        (pizzaList.First(fun p -> p.Id = fst guidPizzaInOrderLaPlusVendueWithQuantity), snd guidPizzaInOrderLaPlusVendueWithQuantity)

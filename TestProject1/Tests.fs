@@ -109,4 +109,7 @@ type TestClass () =
         Console.WriteLine($"Réponse : {pizzas.Count()}")
         Assert.IsTrue(pizzas.Count() > 0)
         
-    
+    [<TestMethod>]
+    member this.PizzaLaPlusVendue () =
+        let pizza = GetPizzaLaPlusVendue()
+        Console.WriteLine($"Réponse : {(fst pizza).Name} en {snd pizza} exemplaires")
