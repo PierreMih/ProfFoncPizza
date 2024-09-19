@@ -6,17 +6,17 @@ open System.Text.Json.Nodes
 open ProfFoncPizza.Types
 
 module MyPizzas =
-    let OpenPizzaJsonFile =
+    let OpenPizzaJsonFile () =
         File.OpenRead "./data/pizzas.json"
         
-    let GetPizzaListFromJson =
+    let GetPizzaListFromJson () =
         let pizzaStream = OpenPizzaJsonFile
         let options = JsonSerializerOptions(PropertyNameCaseInsensitive = true)
-        JsonSerializer.Deserialize<Pizza list>(pizzaStream, options)
+        JsonSerializer.Deserialize<Pizza list>(pizzaStream(), options)
 
-    let OpenOrderJsonFile =
+    let OpenOrderJsonFile () =
         File.OpenRead "./data/orders.json"
     
-    let GetOrderListFromJson =
+    let GetOrderListFromJson () =
         let options = JsonSerializerOptions(PropertyNameCaseInsensitive = true)
-        JsonSerializer.Deserialize<Order list>(OpenOrderJsonFile, options)
+        JsonSerializer.Deserialize<Order list>(OpenOrderJsonFile(), options)
