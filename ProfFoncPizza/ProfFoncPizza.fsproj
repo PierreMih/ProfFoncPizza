@@ -8,6 +8,7 @@
     <ItemGroup>
         <Compile Include="Pizza.fs" />
         <Compile Include="Order.fs" />
+        <Compile Include="CustomDateConverter.fs" />
         <Content Include="data\orders.json">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
