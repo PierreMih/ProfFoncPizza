@@ -6,6 +6,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Pizza.fs" />
+        <Content Include="data\orders.json" />
+        <Content Include="data\pizzas.json" />
         <Compile Include="Library.fs"/>
     </ItemGroup>
 
