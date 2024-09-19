@@ -2,6 +2,7 @@
 
 open System.Collections.Generic
 open System.IO
+open System.Runtime.InteropServices.JavaScript
 open System.Text.Json
 open System.Text.Json.Nodes
 open ProfFoncPizza.CustomDateConverter
@@ -61,3 +62,11 @@ module MyPizzas =
                                 .SelectMany(fun o -> o.Items.DistinctBy(fun pio -> pio.PizzaId) :> IEnumerable<_>)
                                 .Join(pizzaList, (fun pio -> pio.PizzaId), (fun p -> p.Id), fun pio p -> p)
         pizzaList.Except(orderedPizzas)
+        
+    let GetPrixDesCommandesDePizza () =
+        let orderList = GetOrderListFromJson()
+        orderList.Average(fun o -> o.TotalAmount)
+    
+    let GetPizzaRecipesWithNoMeat () =
+        let pizzaList = GetPizzaListFromJson()
+        pizzaList.Where(fun p -> not(p.Ingredients.Intersect(["Anchois"; "Jambon Cru"; "Saucisson Piquant"; "Jambon Cuît"]).Any()))

@@ -71,9 +71,7 @@ type TestClass () =
         for b in ingredients do
             Console.WriteLine(b)
         Console.WriteLine($"Réponse : {ingredients.Count()}")
-        Assert.IsTrue(ingredients.Count() > 0)
-        
-    
+        Assert.IsTrue(ingredients.Count() > 0)    
     
     [<TestMethod>]
     member this.PizzasWithLessThan4Ingredients () =
@@ -83,11 +81,27 @@ type TestClass () =
         Console.WriteLine($"Réponse : {pizzas.Count()}")
         Assert.IsTrue(pizzas.Count() > 0)
         
-    
-    
     [<TestMethod>]
     member this.PizzasNeverSold () =
         let pizzas = GetPizzasThatWereNeverSold()
+        for b in pizzas do
+            Console.WriteLine(b.Name)
+        Console.WriteLine($"Réponse : {pizzas.Count()}")
+        Assert.IsTrue(pizzas.Count() > 0)
+        
+    
+        
+    [<TestMethod>]
+    member this.OrderAveragePrice () =
+        let average = GetPrixDesCommandesDePizza()
+        Console.WriteLine($"Réponse : {average}")
+        Assert.IsTrue(average > 0)
+        
+    
+        
+    [<TestMethod>]
+    member this.PizzasWithoutMeat () =
+        let pizzas = GetPizzaRecipesWithNoMeat()
         for b in pizzas do
             Console.WriteLine(b.Name)
         Console.WriteLine($"Réponse : {pizzas.Count()}")
