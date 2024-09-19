@@ -11,7 +11,7 @@ type Order = {
     Status : string
     Amount : int
     TotalAmount : int
-    Items : Pizza list
+    Items : PizzaInOrder list
 }
     
 

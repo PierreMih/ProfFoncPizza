@@ -1,7 +1,9 @@
 namespace TestProject1
 
 open System
+open System.Collections
 open Microsoft.VisualStudio.TestTools.UnitTesting
+open ProfFoncPizza
 open ProfFoncPizza.MyPizzas
 open ProfFoncPizza.Types
 open System.Linq
@@ -30,6 +32,14 @@ type TestClass () =
         let orderList = GetOrderListFromJson()
         Assert.IsTrue(orderList |> List.length > 0)
         Assert.IsTrue(orderList.Any(fun o -> o.Id = Guid.Parse("1b50f90d-cd69-4db8-8563-fa7e06cb87db")))
+        
+    [<TestMethod>]
+    member this.CanReadOrdersWithPizzasFromJson () =
+        let orderList = GetOrderListFromJson()
+        Assert.IsTrue(orderList |> List.length > 0)
+        Assert.IsTrue(orderList.Any(fun o -> o.Id = Guid.Parse("1b50f90d-cd69-4db8-8563-fa7e06cb87db")))
+        let pizzaIdsOrdered = orderList.SelectMany(fun o -> o.Items.AsEnumerable())
+        Assert.IsTrue(pizzaIdsOrdered.All(fun pio -> pio.PizzaId <> Guid.Empty))
     
     [<TestMethod>]
     member this.CountBases () =
@@ -57,8 +67,30 @@ type TestClass () =
     
     [<TestMethod>]
     member this.WhichIngredientsInOnlyOnceRecipe () =
-        let ingredients = IngredientsUsedOnlyOnce()
+        let ingredients = GetIngredientsUsedOnlyOnce()
         for b in ingredients do
             Console.WriteLine(b)
         Console.WriteLine($"Réponse : {ingredients.Count()}")
         Assert.IsTrue(ingredients.Count() > 0)
+        
+    
+    
+    [<TestMethod>]
+    member this.PizzasWithLessThan4Ingredients () =
+        let pizzas = GetPizzasWithLessThan4Ingredients()
+        for b in pizzas do
+            Console.WriteLine(b.Name)
+        Console.WriteLine($"Réponse : {pizzas.Count()}")
+        Assert.IsTrue(pizzas.Count() > 0)
+        
+    
+    
+    [<TestMethod>]
+    member this.PizzasNeverSold () =
+        let pizzas = GetPizzasThatWereNeverSold()
+        for b in pizzas do
+            Console.WriteLine(b.Name)
+        Console.WriteLine($"Réponse : {pizzas.Count()}")
+        Assert.IsTrue(pizzas.Count() > 0)
+        
+    

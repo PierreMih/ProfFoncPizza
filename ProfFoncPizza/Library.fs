@@ -41,7 +41,7 @@ module MyPizzas =
             |> _.SelectMany(fun p-> p.Ingredients :> IEnumerable<_>) 
             |> _.Distinct()
     
-    let IngredientsUsedOnlyOnce () =
+    let GetIngredientsUsedOnlyOnce () =
         let pizzaList = GetPizzaListFromJson()
         pizzaList
             |> _.SelectMany(fun p -> p.Ingredients :>IEnumerable<_>)
@@ -50,3 +50,14 @@ module MyPizzas =
             |> _.Where(fun t -> snd t = 1)
             |> _.Select(fst) 
     
+    let GetPizzasWithLessThan4Ingredients () =
+        GetPizzaListFromJson()
+            |> _.Where(fun p -> p.Ingredients.Count() < 4)
+        
+    let GetPizzasThatWereNeverSold () =
+        let pizzaList = GetPizzaListFromJson()
+        let orderList = GetOrderListFromJson()
+        let orderedPizzas = orderList
+                                .SelectMany(fun o -> o.Items.DistinctBy(fun pio -> pio.PizzaId) :> IEnumerable<_>)
+                                .Join(pizzaList, (fun pio -> pio.PizzaId), (fun p -> p.Id), fun pio p -> p)
+        pizzaList.Except(orderedPizzas)
