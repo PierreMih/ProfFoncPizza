@@ -89,15 +89,17 @@ type TestClass () =
         Console.WriteLine($"Réponse : {pizzas.Count()}")
         Assert.IsTrue(pizzas.Count() > 0)
         
-    
-        
     [<TestMethod>]
     member this.OrderAveragePrice () =
         let average = GetPrixDesCommandesDePizza()
         Console.WriteLine($"Réponse : {average}")
         Assert.IsTrue(average > 0)
         
-    
+    [<TestMethod>]
+    member this.PizzaTomateAveragePrice () =
+        let average = GetPrixMoyenPizzaTomate()
+        Console.WriteLine($"Réponse : {average}")
+        Assert.IsTrue(average > 0)
         
     [<TestMethod>]
     member this.PizzasWithoutMeat () =

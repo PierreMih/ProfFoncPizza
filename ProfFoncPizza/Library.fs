@@ -66,6 +66,11 @@ module MyPizzas =
     let GetPrixDesCommandesDePizza () =
         let orderList = GetOrderListFromJson()
         orderList.Average(fun o -> o.TotalAmount)
+        
+    let GetPrixMoyenPizzaTomate () =
+        let pizzaList = GetPizzaListFromJson()
+        pizzaList.Where(fun p -> p.Base = "Tomate")
+            .Average(fun p -> p.Price)
     
     let GetPizzaRecipesWithNoMeat () =
         let pizzaList = GetPizzaListFromJson()
