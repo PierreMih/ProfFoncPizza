@@ -91,3 +91,20 @@ module MyPizzas =
     let GetNbMoyenPizzasParCommande () =
         let orderList = GetOrderListFromJson()
         orderList.Average(fun o -> o.Items.Count())
+        
+    let GetUnusedIngredients () =
+        let orderList = GetOrderListFromJson()
+        let pizzaList = GetPizzaListFromJson()
+        let orderedPizzas = orderList
+                                .SelectMany(fun o -> o.Items :> IEnumerable<_>)
+                                .Distinct()
+                                .Join(pizzaList, (fun pio -> pio.PizzaId), (fun p -> p.Id), fun pio p -> p)
+        let usedIngredients = orderedPizzas
+                                    .SelectMany(fun p -> p.Ingredients :> IEnumerable<_>)
+                                    .Distinct()
+        let ingredients = pizzaList
+                                    .SelectMany(fun p -> p.Ingredients :> IEnumerable<_>)
+                                    .Distinct()
+        ingredients.Except(usedIngredients)
+        
+    

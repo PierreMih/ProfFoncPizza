@@ -120,3 +120,11 @@ type TestClass () =
         let nb = GetNbMoyenPizzasParCommande()
         Console.WriteLine($"Réponse : {nb}")
         Assert.IsTrue(nb > 0)
+    
+    [<TestMethod>]
+    member this.UnusedIngredients () =
+        let pizzas = GetUnusedIngredients()
+        for b in pizzas do
+            Console.WriteLine(b)
+        Console.WriteLine($"Réponse : {pizzas.Count()}")
+        Assert.IsTrue(pizzas.Count() > 0)
