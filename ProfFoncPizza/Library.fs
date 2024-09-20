@@ -29,7 +29,8 @@ module MyPizzas =
     let GetDifferentBases () =
         let pizzaList = GetPizzaListFromJson()
         pizzaList
-            |> _.DistinctBy(fun p -> p.Base)
+            |> _.Select(fun p -> p.Base)
+            |> _.Distinct()
         
     let GetPizzasBaseTomate () =
         let pizzaList = GetPizzaListFromJson()

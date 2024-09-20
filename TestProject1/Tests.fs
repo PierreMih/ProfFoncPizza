@@ -44,7 +44,7 @@ type TestClass () =
     [<TestMethod>]
     member this.fCountBases () =
         let bases = GetDifferentBases()
-        for b in bases.Select(fun b->b.Name) do
+        for b in bases do
             Console.WriteLine(b)
         Console.WriteLine($"Réponse : {bases.Count()}")
         Assert.IsTrue(bases.Count() > 0)
