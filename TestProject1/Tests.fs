@@ -66,7 +66,7 @@ type TestClass () =
         Assert.IsTrue(differentIngredients.Count() > 0)
     
     [<TestMethod>]
-    member this.iWhichIngredientsInOnlyOnceRecipe () =
+    member this.iWhichIngredientsInOnlyOneRecipe () =
         let ingredients = GetIngredientsUsedOnlyOnce()
         for b in ingredients do
             Console.WriteLine(b)
