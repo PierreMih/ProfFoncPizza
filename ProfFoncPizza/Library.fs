@@ -126,3 +126,13 @@ module MyPizzas =
         GetOrderListFromJson()
             .Where(fun o -> o.OrderType = "Delivery")
             .Average(fun o -> o.DeliveryCosts)
+            
+    let GetIngredientLePlusMelangeAvecFromage () =
+        let fromages = ["Gorgonzola";"Parmesan";"Mozzarella";"Provola"]
+        GetPizzaListFromJson()
+            .Where(fun p -> p.Ingredients.Intersect(fromages).Any())
+            .SelectMany(fun p -> p.Ingredients :> IEnumerable<_>)
+            .Where(fun i-> not (fromages.Contains(i)))
+            .GroupBy(fun i -> i)
+            .Select(fun group -> group.Key, group.Count())
+            .OrderByDescending(snd)

@@ -148,5 +148,11 @@ type TestClass () =
         let nb = GetAverageDeliveryFees()
         Console.WriteLine($"Réponse : {nb}")
         Assert.IsTrue(nb > 0)
-    
-    
+
+    [<TestMethod>]
+    member this.uIngredientLePlusMelangeAvecFromage () =
+        let pizzas = GetIngredientLePlusMelangeAvecFromage()
+        for b in pizzas do
+            Console.WriteLine($"{snd b} {(fst b)}")
+        Console.WriteLine($"Réponse : {fst (pizzas.First())}")
+        Assert.IsTrue(snd (pizzas.First()) > 0)
