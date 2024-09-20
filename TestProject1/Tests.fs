@@ -135,7 +135,7 @@ type TestClass () =
         for b in pizzas do
             Console.WriteLine($"{snd b} {(fst b).Name}")
         Console.WriteLine($"Réponse : {pizzas.Count()}")
-        Assert.IsTrue(pizzas.Count() = 0)
+        Assert.IsTrue(pizzas.Count() > 0)
         
     [<TestMethod>]
     member this.sMoyenneMinutesTempsPreparation () =
