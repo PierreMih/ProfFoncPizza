@@ -107,4 +107,17 @@ module MyPizzas =
                                     .Distinct()
         ingredients.Except(usedIngredients)
         
-    
+    let GetPizzasOrderedOnlyOnce () =
+        let orderlist = GetOrderListFromJson()
+        let pizzaList = GetPizzaListFromJson()
+        let guidsPizzaVendueUneFois = orderlist
+                                        .SelectMany(fun o -> o.Items :> IEnumerable<_>)
+                                        .Select(fun pio -> (pio.PizzaId, pio.Quantity))
+                                        .GroupBy(fun tup -> fst tup)
+                                        .Select(fun tup -> tup.Key, tup.Sum(snd) )
+                                        .Where(fun tup -> snd tup = 1)
+        guidsPizzaVendueUneFois.Join(pizzaList, fst, (fun p -> p.Id), (fun id p -> p, snd id))
+        
+    let GetHowManyMinutesAnOrderTakesAverage () =
+        GetOrderListFromJson()
+            .Average(fun o -> (o.ReadyAt - o.OrderedAt).TotalMinutes)
