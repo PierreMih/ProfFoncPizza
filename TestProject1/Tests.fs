@@ -142,5 +142,11 @@ type TestClass () =
         let nb = GetNbMoyenPizzasParCommande()
         Console.WriteLine($"Réponse : {nb}")
         Assert.IsTrue(nb > 0)
+        
+    [<TestMethod>]
+    member this.tMoyenneDeliveryFees () =
+        let nb = GetAverageDeliveryFees()
+        Console.WriteLine($"Réponse : {nb}")
+        Assert.IsTrue(nb > 0)
     
     

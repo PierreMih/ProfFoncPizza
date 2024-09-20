@@ -12,6 +12,7 @@ type Order = {
     Amount : int
     TotalAmount : int
     Items : PizzaInOrder list
+    DeliveryCosts : int
 }
     
 

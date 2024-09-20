@@ -121,3 +121,8 @@ module MyPizzas =
     let GetHowManyMinutesAnOrderTakesAverage () =
         GetOrderListFromJson()
             .Average(fun o -> (o.ReadyAt - o.OrderedAt).TotalMinutes)
+            
+    let GetAverageDeliveryFees () =
+        GetOrderListFromJson()
+            .Where(fun o -> o.OrderType = "Delivery")
+            .Average(fun o -> o.DeliveryCosts)
